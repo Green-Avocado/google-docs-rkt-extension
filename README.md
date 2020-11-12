@@ -1,1 +1,1 @@
-# google-docs-rkt-extension
+# rkt-extensions
