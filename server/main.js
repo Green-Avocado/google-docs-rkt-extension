@@ -15,7 +15,7 @@ const server = http.createServer((req, res) => {
 		body = Buffer.concat(body).toString();
 		let data = JSON.parse(body);
 
-		fs.writeFile('request.rkt', data.content, function (err) {
+		fs.writeFile('request.rkt~', data.content, function (err) {
 			if (err) throw err;
 
 			console.log('Saved!');
