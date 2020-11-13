@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
 
 			console.log('Saved!');
 
-			exec('raco test request.rkt', (err, stdout, stderr) => {
+			exec('raco test request.rkt~', (err, stdout, stderr) => {
 				if (err) {
 				  throw err;
 				}
