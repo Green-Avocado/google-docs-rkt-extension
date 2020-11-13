@@ -19,7 +19,7 @@ HOST=<host address>
 PORT=<port number>
 ```
 
-    Replace `<host address>` with the IPv4 address, and `<port number>` with an open port.
+Replace `<host address>` with the IPv4 address, and `<port number>` with an open port.
 
 3. Start the server with `./main.js` or `node main.js`.
 
