@@ -1,11 +1,13 @@
 #!/bin/node
 const fs = require('fs'); 
 const http = require('http');
+
 const { exec } = require('child_process');
 require('dotenv').config()
-
 const hostname = process.env.HOST;
 const port = process.env.PORT;
+
+import { v4 as uuidv4 } from 'uuid';
 
 const server = http.createServer((req, res) => {
 	let body = [];
@@ -14,13 +16,14 @@ const server = http.createServer((req, res) => {
 	}).on('end', () => {
 		body = Buffer.concat(body).toString();
 		let data = JSON.parse(body);
+        let filename = uuidv4() + '.rkt~';
 
-		fs.writeFile('request.rkt~', data.content, function (err) {
+		fs.writeFile(filename, data.content, function (err) {
 			if (err) throw err;
 
 			console.log('Saved!');
 
-			exec('raco test request.rkt~', (err, stdout, stderr) => {
+			exec(`raco test ${filename}`, (err, stdout, stderr) => {
 				if (err) {
 				  throw err;
 				}
@@ -31,6 +34,8 @@ const server = http.createServer((req, res) => {
 				res.setHeader('Content-Type', 'text/plain');
 				res.end(stdout);
 			});
+
+            fs.unlinkSync(filename)
 		});
 	});
 });
