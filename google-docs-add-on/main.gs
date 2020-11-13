@@ -41,10 +41,10 @@ function send(url) {
         'payload' : JSON.stringify(data)
     };
 
-    var response = UrlFetchApp.fetch(url, options);
-    Logger.log(body);
-    Logger.log(response);
+    var response = JSON.parse(UrlFetchApp.fetch(url, options));
 
-    return response;
+    Logger.log(response.status);
+
+    return response.output;
 }
 
