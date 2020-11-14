@@ -24,7 +24,7 @@ const server = http.createServer((req, res) => {
 
                 console.log(`Saved to ${filename}`);
 
-                exec(`raco test ${filename}`, (err, stdout, stderr) => {
+                exec(`raco test --timeout 120 ${filename}`, (err, stdout, stderr) => {
                     if (err) {
                         console.log(err);
 
