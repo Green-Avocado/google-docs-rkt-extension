@@ -17,7 +17,7 @@ function geturl() {
 function seturl() {
     var response = ui.prompt("Enter URL:")
     var url = response.getResponseText();
-    cache.put('url', url, 1209600);
+    cache.put('url', url, 21600);
     ui.alert("Target set to " + url);
 }
 
