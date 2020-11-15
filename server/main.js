@@ -21,41 +21,36 @@ const server = http.createServer((req, res) => {
 
             fs.writeFile(filename, data.content, function (err) {
                 if (err) throw err;
+                else{
+                    console.log(`Saved to ${filename}`);
 
-                console.log(`Saved to ${filename}`);
+                    exec(`raco test --timeout 120 ${filename}`, (err, stdout, stderr) => {
+                        if (err) {
+                            console.log(`stderr: ${stderr}`);
 
-                exec(`raco test --timeout 120 ${filename}`, (err, stdout, stderr) => {
-                    if (err) {
-                        console.log(err);
+                            fs.unlinkSync(filename)
+                            
+                            res.statusCode = 500;
+                            res.end(JSON.stringify({
+                                status: "Error",
+                                output: stderr
+                            }));
+                        }
+                        else {
+                            console.log(`stdout: ${stdout}`);
 
-                        res.statusCode = 500;
-                        res.end(JSON.stringify({
-                            status: `Error: ${err}`,
-                            output: null
-                        }));
-                    }
-
-                    console.log(`stdout: ${stdout}`);
-
-                    fs.unlinkSync(filename)
-                    
-                    res.statusCode = 200;
-                    res.end(JSON.stringify({
-                        status: "Success",
-                        output: stdout
-                    }));
-                });
+                            fs.unlinkSync(filename)
+                            
+                            res.statusCode = 200;
+                            res.end(JSON.stringify({
+                                status: "Success",
+                                output: stdout
+                            }));
+                        }
+                    });
+                }
             });
         });
-    }
-    catch(err) {
-        console.log(err);
-
-        res.statusCode = 500;
-        res.end(JSON.stringify({
-            status: `Error: ${err}`,
-            output: null
-        }));
     }
 });
 
@@ -74,5 +69,9 @@ process.on('SIGINT', function() {
         console.log('done\n');
         process.exit();
     });
+});
+
+process.on('uncaughtException', function(err) {
+    console.log(`\nUncaught Error:\n${err}`);
 });
 
