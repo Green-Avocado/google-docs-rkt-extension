@@ -10,48 +10,46 @@ const port = process.env.PORT;
 const { v4: uuidv4 } = require('uuid');
 
 const server = http.createServer((req, res) => {
-    try {
-        let body = [];
-        req.on('data', (chunk) => {
-            body.push(chunk);
-        }).on('end', () => {
-            body = Buffer.concat(body).toString();
-            let data = JSON.parse(body);
-            let filename = uuidv4() + '.rkt~';
+    let body = [];
+    req.on('data', (chunk) => {
+        body.push(chunk);
+    }).on('end', () => {
+        body = Buffer.concat(body).toString();
+        let data = JSON.parse(body);
+        let filename = uuidv4() + '.rkt~';
 
-            fs.writeFile(filename, data.content, function (err) {
-                if (err) throw err;
-                else{
-                    console.log(`Saved to ${filename}`);
+        fs.writeFile(filename, data.content, function (err) {
+            if (err) throw err;
+            else{
+                console.log(`Saved to ${filename}`);
 
-                    exec(`raco test --timeout 120 ${filename}`, (err, stdout, stderr) => {
-                        if (err) {
-                            console.log(`stderr: ${stderr}`);
+                exec(`raco test --timeout 120 ${filename}`, (err, stdout, stderr) => {
+                    if (err) {
+                        console.log(`stderr: ${stderr}`);
 
-                            fs.unlinkSync(filename)
-                            
-                            res.statusCode = 500;
-                            res.end(JSON.stringify({
-                                status: "Error",
-                                output: stderr
-                            }));
-                        }
-                        else {
-                            console.log(`stdout: ${stdout}`);
+                        fs.unlinkSync(filename)
+                        
+                        res.statusCode = 500;
+                        res.end(JSON.stringify({
+                            status: "Error",
+                            output: stderr
+                        }));
+                    }
+                    else {
+                        console.log(`stdout: ${stdout}`);
 
-                            fs.unlinkSync(filename)
-                            
-                            res.statusCode = 200;
-                            res.end(JSON.stringify({
-                                status: "Success",
-                                output: stdout
-                            }));
-                        }
-                    });
-                }
-            });
+                        fs.unlinkSync(filename)
+                        
+                        res.statusCode = 200;
+                        res.end(JSON.stringify({
+                            status: "Success",
+                            output: stdout
+                        }));
+                    }
+                });
+            }
         });
-    }
+    });
 });
 
 server.listen(port, hostname, () => {
