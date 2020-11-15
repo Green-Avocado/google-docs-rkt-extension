@@ -29,7 +29,7 @@ const server = http.createServer((req, res) => {
 
                         fs.unlinkSync(filename)
                         
-                        res.statusCode = 500;
+                        res.statusCode = 200;
                         res.end(JSON.stringify({
                             status: "Error",
                             output: stderr
