@@ -13,6 +13,18 @@
 
 ## Use
 
+### Google Docs
+
+Copy paste the raw data of the \*.rkt file into Google Docs.
+Do not copy paste from DrRacket as it will remove metadata, use a text editor such as notepad instead.
+The document should include the first few lines at the top, which may looks something like:
+
+```rkt
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname pset-09-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #t)))
+```
+
 ### Set Target
 
 Go to `Racket Add-on` in the document.
