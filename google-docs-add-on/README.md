@@ -1,6 +1,8 @@
 # Google Docs Add-on
 
+## Requirements
 
+This add-on requires an active public server running the [server module](/server).
 
 ## Installation
 
