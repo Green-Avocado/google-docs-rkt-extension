@@ -1,0 +1,24 @@
+{
+    "name": "Racket Tests",
+    "version": "0.1.0",
+    "description": "Test rkt files from Google Docs",
+
+    "permissions": [
+        "activeTab"
+    ],
+
+    "content_scripts": [
+        {
+            "matches": ["*://docs.google.com/document/d/*"],
+            "run_at": "document_idle",
+            "js": ["docsContent.js"]
+        }
+    ],
+
+    "web_accessible_resources": [
+        "publicMethods.js"
+    ],
+
+    "manifest_version": 2
+}
+
