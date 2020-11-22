@@ -8,7 +8,6 @@ function authenticate() {
 }
 
 function loadClient() {
-    gapi.client.setApiKey("AIzaSyD7qk5VrQFjogROphN_Lr1oQMpOYAQLov4");
     return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/docs/v1/rest")
         .then(function() { console.log("GAPI client loaded for API"); },
             function(err) { console.error("Error loading GAPI client for API", err); });
@@ -21,9 +20,20 @@ function execute(id) {
         "prettyPrint": true
     })
         .then(function(response) {
-                console.log("Response", response);
-            },
-            function(err) { console.error("Execute error", err); });
+            console.log("Response", response);
+            
+            body = JSON.parse(response.body).body.content;
+
+            content = "";
+
+            for(let i = 1; i < body.length; i++) {
+                content += body[i].paragraph.elements[0].textRun.content;
+            }
+
+            console.log(content);
+            document.getElementById('docContent').innerText = content;
+        },
+        function(err) { console.error("Execute error", err); });
     }
     gapi.load("client:auth2", function() {
     auth2 = gapi.auth2.init({client_id: "570616045500-um4d2qq5ii78dqof943ohrndpv356gr7.apps.googleusercontent.com"});
