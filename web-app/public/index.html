@@ -3,9 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Raco Test</title>
+    <script src="https://apis.google.com/js/client:plusone.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=initClient" async defer></script>
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="initClient()">
+      <input id="docsURL" type="text"></input><br>
+      <button onclick="check_rkt()">Go</button>
   </body>
 </html>
