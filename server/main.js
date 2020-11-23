@@ -10,6 +10,10 @@ const port = process.env.PORT;
 const { v4: uuidv4 } = require('uuid');
 
 const server = http.createServer((req, res) => {
+    const headers = {
+        'Access-Control-Allow-Origin': '*'
+    };
+
     let body = [];
     req.on('data', (chunk) => {
         body.push(chunk);
@@ -29,7 +33,7 @@ const server = http.createServer((req, res) => {
 
                         fs.unlinkSync(filename)
                         
-                        res.statusCode = 200;
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: "Error",
                             output: stderr
@@ -40,7 +44,7 @@ const server = http.createServer((req, res) => {
 
                         fs.unlinkSync(filename)
                         
-                        res.statusCode = 200;
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: "Success",
                             output: stdout
