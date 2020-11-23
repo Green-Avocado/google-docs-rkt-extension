@@ -10,15 +10,23 @@
 </head>
 <body onload="loadClient()">
     <div>
-        <input id="serverAddress" type="text"></input><br style="height:48pt">
-        <input id="docsURL" type="text"></input><br>
+        <label for="serverAddress">Server URL (<code>http://localhost:8000</code> in most cases):</label><br>
+        <input name="serverAddress" id="serverAddress" type="text"></input><br style="height:48pt"><br>
+
+        <label for"docsURL">Google Docs URL:</label><br>
+        <input name="docsURL" id="docsURL" type="text"></input><br>
+
         <button onclick="check_rkt()">Go</button>
     </div>
     <div>
+        <br>
         <code id="response"></code>
+        <br>
     </div>
     <div>
+        <br>
         <code id="docContent"></code>
+        <br>
     </div>
 </body>
 </html>
