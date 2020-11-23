@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Raco Test</title>
     <script src="https://apis.google.com/js/client:plusone.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=initClient" async defer></script>
     <script src="script.js"></script>
-  </head>
-  <body onload="loadClient()">
-      <div>
+</head>
+<body onload="loadClient()">
+    <div>
+        <input id="serverAddress" type="text"></input><br style="height:48pt">
         <input id="docsURL" type="text"></input><br>
         <button onclick="check_rkt()">Go</button>
-      </div>
-      <div>
-          <code id="response"></code>
-      </div>
-      <div>
-          <code id="docContent"></code>
-      </div>
-  </body>
+    </div>
+    <div>
+        <code id="response"></code>
+    </div>
+    <div>
+        <code id="docContent"></code>
+    </div>
+</body>
 </html>

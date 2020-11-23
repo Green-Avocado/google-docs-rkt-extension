@@ -32,6 +32,8 @@ function execute(id) {
 
             console.log(content);
             document.getElementById('docContent').innerText = content;
+
+            send_to_server(content);
         },
         function(err) { console.error("Execute error", err); });
     }
@@ -57,5 +59,24 @@ function get_from_docs(id) {
 }
 
 function send_to_server(content) {
+    ip = document.getElementById('serverAddress').value;
+
+    fetch(ip, {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({content: content})
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            response = document.getElementById('response')
+            response.innerText = data.output;
+            if(data.status == "Success") {
+                response.style.color = "green";
+            }
+            else {
+                response.style.color = "red";
+            }
+        });
 }
 
