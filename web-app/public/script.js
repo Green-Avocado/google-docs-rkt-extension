@@ -25,13 +25,19 @@ function execute(id) {
             body = JSON.parse(response.body).body.content;
 
             content = "";
+            displayContent = "";
 
             for(let i = 1; i < body.length; i++) {
-                content += body[i].paragraph.elements[0].textRun.content;
+                newContent = body[i].paragraph.elements[0].textRun.content;
+                content += newContent;
+
+                if(i > 3) {
+                    displayContent += '\u200c' + (i-3).padStart(8, ' ') + '  ' + newContent;
+                }
             }
 
             console.log(content);
-            document.getElementById('docContent').innerText = content;
+            document.getElementById('docContent').innerText = displayContent;
 
             send_to_server(content);
         },
