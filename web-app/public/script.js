@@ -32,7 +32,7 @@ function execute(id) {
                 content += newContent;
 
                 if(i > 3) {
-                    displayContent += '\u200c' + (i-3).padStart(8, ' ') + '  ' + newContent;
+                    displayContent += '\u200c' + (i-3).toString().padStart(8, ' ') + '  ' + newContent;
                 }
             }
 
